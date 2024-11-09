@@ -4,13 +4,20 @@ import numpy as np
 
 
 class AbsSpectrum():
-    def __init__(self,path, name):
-        self.path = path
-        self.name = name
-        
-        data = pd.read_csv(path + name,skiprows=2, names =['wl','abs','extra'] )
-        data = data.drop(columns='extra')
-        self.data = data.dropna()
+    def __init__(self,fullpath,horiba=False):
+        self.fullpath = fullpath
+
+        if horiba is False:
+            data = pd.read_csv(fullpath,skiprows=2, names =['wl','abs','extra'] )
+            data = data.drop(columns='extra')
+            data = data.dropna()
+        else:
+            data = pd.read_csv(fullpath,skiprows=12,sep='\t',names =['wl','abs','extra'])
+            data = data.drop(columns='extra')
+            data = data.dropna()
+
+
+        self.data = data
         self.bg = np.mean(self.data['abs'][0:10])
         self.data['abscorr']=self.data['abs']-self.bg
         self.data['absnorm']=self.data['abscorr']/np.max(self.data['abscorr'])
