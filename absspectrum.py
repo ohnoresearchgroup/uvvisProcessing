@@ -4,7 +4,7 @@ import numpy as np
 
 
 class AbsSpectrum():
-    def __init__(self,fullpath,horiba=False,bgrange=None):
+    def __init__(self,fullpath,horiba=False,bgrange=None,normrange=None):
         self.fullpath = fullpath
 
         if horiba is False:
@@ -30,7 +30,13 @@ class AbsSpectrum():
             self.data['abscorr']=self.data['abs']-self.bg
         
         #normalized data
-        self.data['absnorm']=self.data['abscorr']/np.max(self.data['abscorr'])
+        if normrange is None:
+            self.data['absnorm'] = self.data['abscorr']/np.max(self.data['abscorr'])
+        else:
+            #find indices of normrange
+            lidx = closest_index(self.data['wl'],normrange[0])
+            ridx = closest_index(self.data['wl'],normrange[1])
+            self.data['absnorm'] = self.data['abscorr']/np.max(self.data['abscorr'][lidx:ridx])
         
         plt.figure()
         plt.plot(self.data['wl'],self.data['abscorr'])
