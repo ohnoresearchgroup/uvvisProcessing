@@ -23,8 +23,8 @@ class AbsSpectrum():
             self.data['abscorr'] = self.data['abs']
         else:
             #find indices of bgrange
-            lidx = closest_index(self.data['wl'],bgrange[0])
-            ridx = closest_index(self.data['wl'],bgrange[1])
+            ridx = closest_index(self.data['wl'],bgrange[0])
+            lidx = closest_index(self.data['wl'],bgrange[1])
             
             self.bg = np.mean(self.data['abs'][lidx:ridx])
             self.data['abscorr']=self.data['abs']-self.bg
@@ -34,8 +34,8 @@ class AbsSpectrum():
             self.data['absnorm'] = self.data['abscorr']/np.max(self.data['abscorr'])
         else:
             #find indices of normrange
-            lidx = closest_index(self.data['wl'],normrange[0])
-            ridx = closest_index(self.data['wl'],normrange[1])
+            ridx = closest_index(self.data['wl'],normrange[0])
+            lidx = closest_index(self.data['wl'],normrange[1])
             print(lidx)
             print(ridx)
             print(self.data['abscorr'][lidx:ridx])
