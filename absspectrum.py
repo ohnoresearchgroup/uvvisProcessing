@@ -36,6 +36,10 @@ class AbsSpectrum():
             #find indices of normrange
             lidx = closest_index(self.data['wl'],normrange[0])
             ridx = closest_index(self.data['wl'],normrange[1])
+            print(lidx)
+            print(ridx)
+            print(self.data['abscorr'][lidx:ridx])
+            print(np.max(self.data['abscorr'][lidx:ridx]))
             self.data['absnorm'] = self.data['abscorr']/np.max(self.data['abscorr'][lidx:ridx])
         
         plt.figure()
