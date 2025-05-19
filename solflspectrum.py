@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.integrate import trapezoid as trapz
 
 
 class SolFlSpectrum():
@@ -28,3 +29,8 @@ class SolFlSpectrum():
         
     def saveSpectrum(self,outputpath):
         self.data.to_csv(outputpath + "PROCESSED_" + self.name,index = False)
+
+
+    def integrate_spectrum(self):
+        return trapz(self.data['counts'], self.data['wl'])
+        
