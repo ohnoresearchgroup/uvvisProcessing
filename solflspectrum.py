@@ -31,6 +31,12 @@ class SolFlSpectrum():
         self.data.to_csv(outputpath + "PROCESSED_" + self.name,index = False)
 
 
-    def integrate_spectrum(self):
-        return trapz(self.data['counts'], self.data['wl'])
+    def integrate_spectrum(self,wlrange):
+        wl1 = wlrange[0]
+        wl2 = wlrange[1]
+
+        idx1 = np.argmin(np.abs(self.data['wl'] - wl1))
+        idx2 = np.argmin(np.abs(self.data['wl'] - wl2))
+        
+        return trapz(self.data['counts'][idx1:idx2], self.data['wl'][idx1:idx2])
         

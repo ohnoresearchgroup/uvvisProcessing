@@ -49,7 +49,7 @@ class AbsSpectrum():
     def saveSpectrum(self,outputpath):
         self.data.to_csv(outputpath + "PROCESSED_" + self.name,index = False)
 
-    def get_abs_at_point(self,wl):
+    def get_abs_at_wl(self,wl):
         wavelengths = self.data['wl']
         absorbance = self.data['abscorr']
         idx = np.argmin(np.abs(wavelengths - wl))
